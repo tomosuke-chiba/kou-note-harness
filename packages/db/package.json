@@ -1,0 +1,6 @@
+{
+  "name": "@note-harness/db",
+  "version": "0.1.0",
+  "private": true,
+  "description": "D1 schema for Note Harness"
+}
