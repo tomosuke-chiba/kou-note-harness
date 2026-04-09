@@ -1,58 +1,57 @@
-# Note Harness
+# KOU Note Harness
 
-Self-hosted static blog platform with content gating. Part of [The Harness OSS](https://github.com/Shudesu/the-harness-oss) ecosystem.
+KOU Corporation の歯科採用コンサルティング向けSEOブログ。
+[Note Harness OSS](https://github.com/Shudesu/note-harness-oss)（MIT）ベース。
 
-Gate blog content behind X engagement, LINE friend-adds, or access tokens. Deploy on Cloudflare (Workers + Pages + D1).
+## 概要
 
-## Architecture
+- 歯科院長向けの採用ノウハウ記事を公開
+- 記事途中まで無料閲覧 → 全文はLINE友達登録でゲート解除
+- SEO流入 → LINE登録 → ステップ配信 → セミナー → 契約 のファネル入口
 
-- **`apps/worker/`** — Hono API on Cloudflare Workers (gate management, unlock verification, analytics)
-- **`apps/blog/`** — Static site builder (Markdown + frontmatter -> gated HTML)
-- **`packages/db/`** — D1 schema
-- **`packages/shared/`** — TypeScript types
+## 技術スタック
 
-## Quick Start
+- Cloudflare Workers + D1（API）
+- Static Blog Builder（Markdown → HTML）
+- LINE gate（LINE友達登録でコンテンツ解放）
+
+## セットアップ
 
 ```bash
 pnpm install
-pnpm db:migrate:local
-pnpm dev:worker
-pnpm build:blog
+
+# D1データベース作成
+npx wrangler d1 create kou-note-harness
+# → database_id を apps/worker/wrangler.toml に記入
+
+# スキーマ適用
+npx wrangler d1 execute kou-note-harness --file=packages/db/schema.sql
+
+# ローカル開発
+pnpm dev:worker    # API (port 8787)
+pnpm build:blog    # ブログビルド
 ```
 
-## Content Gating
+## コンテンツ追加
 
-Add `<!-- gate -->` in your Markdown to split free preview from gated content:
+`apps/blog/content/` に Markdown ファイルを追加:
 
 ```markdown
 ---
-title: "My Article"
-gate: x_engagement
+title: "記事タイトル"
+description: "SEO用の説明文"
+date: "2026-04-10"
+gate: line_friend
 ---
 
-Free preview content here...
+無料プレビュー部分...
 
 <!-- gate -->
 
-This content requires unlocking.
+LINE登録後に読める部分...
 ```
 
-## Gate Types
+## 関連
 
-| Type | Description |
-|------|-------------|
-| `x_engagement` | Unlock via X Harness engagement gate (like/RT/reply) |
-| `line_friend` | Unlock via LINE Harness friend-add |
-| `token` | Unlock via pre-created access token |
-
----
-
-# Note Harness
-
-セルフホスト型ブログ＋コンテンツゲーティング。[The Harness OSS](https://github.com/Shudesu/the-harness-oss) エコシステムの一部。
-
-X エンゲージメント、LINE 友だち追加、アクセストークンでブログ記事をゲート。Cloudflare（Workers + Pages + D1）にデプロイ。
-
-## License
-
-MIT
+- [line-marketing-automation](https://github.com/tomosuke-chiba/line-marketing-automation) — LINE配信基盤
+- [kou-marketing](https://github.com/tomosuke-chiba/kou-marketing) — マーケティング戦略管理
