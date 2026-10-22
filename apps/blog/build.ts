@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import matter from 'gray-matter';
+import { load as loadYaml } from 'js-yaml';
 import { marked } from 'marked';
 import type { ArticleFrontmatter } from '@note-harness/shared';
 
@@ -169,7 +170,7 @@ interface Article {
 
 function buildArticle(filename: string): Article {
   const raw = fs.readFileSync(path.join(CONTENT_DIR, filename), 'utf-8');
-  const { data, content } = matter(raw);
+  const { data, content } = matter(raw, { engines: { yaml: (source) => loadYaml(source) as object } });
   const fm = data as ArticleFrontmatter;
   const slug = filename.replace(/\.md$/, '');
 
