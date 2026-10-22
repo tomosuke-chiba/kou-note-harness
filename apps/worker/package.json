@@ -9,11 +9,11 @@
   },
   "dependencies": {
     "@note-harness/shared": "workspace:*",
-    "hono": "^4.7.5"
+    "hono": "^4.13.13"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20250327.0",
+    "@cloudflare/workers-types": "5.20261019.1",
     "typescript": "^5.9.3",
-    "wrangler": "^4.7.1"
+    "wrangler": "4.151.3"
   }
 }

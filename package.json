@@ -2,7 +2,7 @@
   "name": "note-harness",
   "version": "0.1.0",
   "private": true,
-  "description": "Open-source self-hosted static blog with content gating — note代替",
+  "description": "Open-source self-hosted static blog with content gating \u2014 note\u4ee3\u66ff",
   "scripts": {
     "dev:worker": "pnpm --filter worker dev",
     "build": "pnpm -r build",
@@ -19,5 +19,10 @@
   "devDependencies": {
     "typescript": "^5.9.3"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "pnpm": {
+    "overrides": {
+      "gray-matter>js-yaml": "4.3.2"
+    }
+  }
 }

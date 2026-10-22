@@ -10,11 +10,13 @@
   "dependencies": {
     "@note-harness/shared": "workspace:*",
     "gray-matter": "^4.0.3",
-    "marked": "^15.0.7"
+    "marked": "^15.0.7",
+    "js-yaml": "4.3.2"
   },
   "devDependencies": {
-    "tsx": "^4.19.4",
+    "tsx": "4.23.15",
     "typescript": "^5.9.3",
-    "@types/node": "^22.14.1"
+    "@types/node": "^22.14.1",
+    "@types/js-yaml": "4.0.9"
   }
 }
